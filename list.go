@@ -12,30 +12,23 @@ type listResponseAttrs struct {
 }
 
 type listFilter struct {
-	limit  int
 	offset int
-	others url.Values
+	query  url.Values
 }
 
-func (f *listFilter) query() url.Values {
+func (f *listFilter) encode() url.Values {
 	u := url.Values{}
 
-	if f.limit < 1 || 100 < f.limit {
-		f.limit = ListLimit
+	if f.query != nil {
+		u = f.query
 	}
-	u.Set("limit", strconv.Itoa(f.limit))
 
+	u.Set("limit", strconv.Itoa(ListLimit))
 	u.Set("offset", strconv.Itoa(f.offset))
-
-	if f.others != nil {
-		for k, v := range f.others {
-			u.Set(k, v[0])
-		}
-	}
 
 	return u
 }
 
 func (f *listFilter) nextPage() {
-	f.offset += f.limit
+	f.offset += ListLimit
 }
