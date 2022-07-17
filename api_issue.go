@@ -53,22 +53,21 @@ func (c *Client) GetIssues(query url.Values, limit int) ([]*Issue, error) {
 	endpoint := "/issues.json"
 
 	items := []*Issue{}
-	resp := struct {
-		listResponseAttrs
-		Issues []*Issue `json:"issues"`
-	}{}
-
 	filter := &listFilter{query: query}
 	for ; ; filter.nextPage() {
 		respBodyBytes, err := c.getRequest(endpoint, filter.encode())
 		if err != nil {
 			return nil, err
 		}
+		resp := struct {
+			listResponseAttrs
+			Issues []*Issue `json:"issues"`
+		}{}
 		if err := json.Unmarshal(respBodyBytes, &resp); err != nil {
 			return nil, fmt.Errorf("json unmarshal error: %v", err)
 		}
 		if len(resp.Issues) == 0 {
-			break
+			goto end
 		}
 		for _, item := range resp.Issues {
 			items = append(items, item)
@@ -79,6 +78,5 @@ func (c *Client) GetIssues(query url.Values, limit int) ([]*Issue, error) {
 	}
 
 end:
-
 	return items, nil
 }

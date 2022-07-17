@@ -43,17 +43,16 @@ func (c *Client) GetVersions(project string, query url.Values, limit int) ([]*Ve
 	endpoint := fmt.Sprintf("/projects/%s/versions.json", project)
 
 	items := []*Version{}
-	resp := struct {
-		listResponseAttrs
-		Versions []*Version `json:"versions"`
-	}{}
-
 	filter := &listFilter{query: query}
 
 	respBodyBytes, err := c.getRequest(endpoint, filter.encode())
 	if err != nil {
 		return nil, err
 	}
+	resp := struct {
+		listResponseAttrs
+		Versions []*Version `json:"versions"`
+	}{}
 	if err := json.Unmarshal(respBodyBytes, &resp); err != nil {
 		return nil, fmt.Errorf("json unmarshal error: %v", err)
 	}
