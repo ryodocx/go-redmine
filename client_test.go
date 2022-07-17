@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/ryodocx/go-redmine"
+	"github.com/ryodocx/go-redmine/v2"
 )
 
 var (
