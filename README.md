@@ -2,7 +2,7 @@
 
 [![lint](https://github.com/ryodocx/go-redmine/actions/workflows/golangci-lint.yaml/badge.svg)](https://github.com/ryodocx/go-redmine/actions/workflows/golangci-lint.yaml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/ryodocx/go-redmine)](https://goreportcard.com/report/github.com/ryodocx/go-redmine)
-[![GoDoc](https://pkg.go.dev/badge/github.com/ryodocx/go-redmine/v2?status.svg)](https://pkg.go.dev/github.com/ryodocx/go-redmine/v2)
+[![GoDoc](https://pkg.go.dev/badge/github.com/ryodocx/go-redmine?status.svg)](https://pkg.go.dev/github.com/ryodocx/go-redmine)
 
 ### Supported APIs
 * [ ] Issues

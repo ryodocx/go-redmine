@@ -1,3 +1,3 @@
-module github.com/ryodocx/go-redmine/v2
+module github.com/ryodocx/go-redmine
 
 go 1.18
