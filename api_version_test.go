@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/ryodocx/go-redmine/v2"
+	"github.com/ryodocx/go-redmine"
 )
 
 func TestGetVersion(t *testing.T) {

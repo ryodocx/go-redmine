@@ -3,7 +3,7 @@ package redmine_test
 import (
 	"testing"
 
-	"github.com/ryodocx/go-redmine/v2"
+	"github.com/ryodocx/go-redmine"
 )
 
 func TestGetIssue(t *testing.T) {
