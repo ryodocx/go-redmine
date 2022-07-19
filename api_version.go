@@ -3,7 +3,6 @@ package redmine
 import (
 	"encoding/json"
 	"fmt"
-	"net/url"
 )
 
 type Version struct {
@@ -22,9 +21,11 @@ type Version struct {
 	UpdatedOn      string        `json:"updated_on"`
 }
 
-func (c *Client) GetVersionByID(id int) (*Version, error) {
+func (c *Client) GetVersionByID(id int, opts ...ReqOption) (*Version, error) {
 	endpoint := fmt.Sprintf("/versions/%d.json", id)
-	respBodyBytes, err := c.getRequest(endpoint, nil)
+
+	o := reqOptions(opts...)
+	respBodyBytes, err := c.getRequest(endpoint, o.query)
 	if err != nil {
 		return nil, err
 	}
@@ -39,11 +40,13 @@ func (c *Client) GetVersionByID(id int) (*Version, error) {
 	return &resp.Version, nil
 }
 
-func (c *Client) GetVersions(project string, query url.Values, limit int) ([]*Version, error) {
+func (c *Client) GetProjectVersions(project string, opts ...ReqOption) ([]*Version, error) {
 	endpoint := fmt.Sprintf("/projects/%s/versions.json", project)
 
+	o := reqOptions(opts...)
+
 	items := []*Version{}
-	filter := &listFilter{query: query}
+	filter := &listFilter{query: o.query}
 
 	respBodyBytes, err := c.getRequest(endpoint, filter.encode())
 	if err != nil {
@@ -59,7 +62,7 @@ func (c *Client) GetVersions(project string, query url.Values, limit int) ([]*Ve
 
 	for _, item := range resp.Versions {
 		items = append(items, item)
-		if limit > 0 && len(items) >= limit {
+		if o.limit > 0 && len(items) >= o.limit {
 			goto end
 		}
 	}

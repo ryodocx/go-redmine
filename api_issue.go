@@ -3,7 +3,6 @@ package redmine
 import (
 	"encoding/json"
 	"fmt"
-	"net/url"
 )
 
 type Issue struct {
@@ -32,9 +31,11 @@ type Issue struct {
 	ClosedOn            *string       `json:"closed_on,omitempty"`
 }
 
-func (c *Client) GetIssueByID(id int) (*Issue, error) {
+func (c *Client) GetIssueByID(id int, opts ...ReqOption) (*Issue, error) {
 	endpoint := fmt.Sprintf("/issues/%d.json", id)
-	respBodyBytes, err := c.getRequest(endpoint, nil)
+
+	o := reqOptions(opts...)
+	respBodyBytes, err := c.getRequest(endpoint, o.query)
 	if err != nil {
 		return nil, err
 	}
@@ -49,11 +50,13 @@ func (c *Client) GetIssueByID(id int) (*Issue, error) {
 	return &resp.Issue, nil
 }
 
-func (c *Client) GetIssues(query url.Values, limit int) ([]*Issue, error) {
+func (c *Client) GetIssues(opts ...ReqOption) ([]*Issue, error) {
 	endpoint := "/issues.json"
 
+	o := reqOptions(opts...)
+
 	items := []*Issue{}
-	filter := &listFilter{query: query}
+	filter := &listFilter{query: o.query}
 	for ; ; filter.nextPage() {
 		respBodyBytes, err := c.getRequest(endpoint, filter.encode())
 		if err != nil {
@@ -71,7 +74,7 @@ func (c *Client) GetIssues(query url.Values, limit int) ([]*Issue, error) {
 		}
 		for _, item := range resp.Issues {
 			items = append(items, item)
-			if limit > 0 && len(items) >= limit {
+			if o.limit > 0 && len(items) >= o.limit {
 				goto end
 			}
 		}

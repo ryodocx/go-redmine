@@ -23,12 +23,12 @@ func (f *listFilter) encode() url.Values {
 		u = f.query
 	}
 
-	u.Set("limit", strconv.Itoa(ListLimit))
+	u.Set("limit", strconv.Itoa(listLimit))
 	u.Set("offset", strconv.Itoa(f.offset))
 
 	return u
 }
 
 func (f *listFilter) nextPage() {
-	f.offset += ListLimit
+	f.offset += listLimit
 }

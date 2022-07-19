@@ -13,9 +13,6 @@ var (
 )
 
 func init() {
-
-	redmine.DebugMode = true
-
 	baseURL = os.Getenv("REDMINE_BASEURL")
 	if baseURL == "" {
 		panic("REDMINE_BASEURL is required!")
@@ -26,7 +23,7 @@ func init() {
 		panic("REDMINE_APIKEY is required!")
 	}
 
-	if c, err := redmine.NewClient(baseURL, apiKey); err != nil {
+	if c, err := redmine.NewClient(baseURL, apiKey, redmine.OptionDebugMode(true)); err != nil {
 		panic(err)
 	} else {
 		client = c
