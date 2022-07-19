@@ -65,6 +65,5 @@ func (c *Client) GetVersions(project string, query url.Values, limit int) ([]*Ve
 	}
 
 end:
-
 	return items, nil
 }
