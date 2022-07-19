@@ -43,6 +43,10 @@ func (c *Client) GetVersionByID(id int, opts ...ReqOption) (*Version, error) {
 func (c *Client) GetProjectVersions(project string, opts ...ReqOption) ([]*Version, error) {
 	endpoint := fmt.Sprintf("/projects/%s/versions.json", project)
 
+	if project == "" {
+		return nil, fmt.Errorf("`project` is empty")
+	}
+
 	o := reqOptions(opts...)
 
 	items := []*Version{}
