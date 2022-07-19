@@ -36,7 +36,7 @@ func Example() {
 		panic(err)
 	}
 
-	client.HealthCheck()
+	_ = client.HealthCheck()
 	// client.GetXxx...
 }
 
