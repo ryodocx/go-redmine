@@ -20,7 +20,10 @@ func ReqOptionLimit(limit int) ReqOption {
 }
 
 func reqOptions(opts ...ReqOption) *ReqOptions {
-	o := &ReqOptions{}
+	o := &ReqOptions{
+		query: url.Values{},
+		limit: 0,
+	}
 	for _, setter := range opts {
 		setter(o)
 	}
