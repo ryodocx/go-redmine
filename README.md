@@ -27,7 +27,8 @@
 * [ ] Roles
 * [ ] Groups
 * [ ] Custom Fields
-* [ ] Search
+* [x] Search
+  * [x] [GET /search.json](https://www.redmine.org/projects/redmine/wiki/Rest_Search)
 * [ ] Files
 * [x] My account
   * [x] [GET /my/account.json](https://www.redmine.org/projects/redmine/wiki/Rest_MyAccount#GET)
