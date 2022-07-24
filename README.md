@@ -1,6 +1,7 @@
 # go-redmine
 
 [![lint](https://github.com/ryodocx/go-redmine/actions/workflows/golangci-lint.yaml/badge.svg)](https://github.com/ryodocx/go-redmine/actions/workflows/golangci-lint.yaml)
+[![CodeQL](https://github.com/ryodocx/go-redmine/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/ryodocx/go-redmine/actions/workflows/codeql-analysis.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/ryodocx/go-redmine)](https://goreportcard.com/report/github.com/ryodocx/go-redmine)
 [![GoDoc](https://pkg.go.dev/badge/github.com/ryodocx/go-redmine?status.svg)](https://pkg.go.dev/github.com/ryodocx/go-redmine)
 
